@@ -31,22 +31,19 @@ export default class Battle {
   }
 
   EndBattle(result) {
-    switch (result) {
-      case "win": 
-        this.character.LevelUp();
-        let drops = this.monster.GetDrops();
-        drops.slice(0, drops.length - 1).forEach((item) => {
-          this.character.inventory.AddItem(item);
-        });
-        
-        this.character.gold += drops[drops.length - 1];
-        break;
-      case "lose":
-        //Start over or go back
-        break;
-      default:
-        this.character.hp = this.character.charClass.str + 5;
-        break;
+    if (result === "win") {
+      this.character.LevelUp();
+      let drops = this.monster.GetDrops();
+      drops.slice(0, drops.length - 1).forEach((item) => {
+        this.character.inventory.AddItem(item);
+      });
+      
+      this.character.gold += drops[drops.length - 1];
+
+    } else if (result === "lose") {
+      console.log("do something for game-over")
+    } else {
+      this.character.hp = this.character.charClass.str + 5;
     }
 
     return result;
