@@ -23,7 +23,7 @@ function updateBattleUI(battle) {
   $("#character-hp").text(`${battle.character.hp}: -${battle.monsterDamage}`);
   $("#monster-hp").text(`${battle.monster.hp}: -${battle.characterDamage}`);
   $("#name-display").text(battle.character.name);
-  $("#monster-name").text(battle.monster.name);
+  $("#monster-name").text(battle.monster.name + " Slime");
 }
 
 function toggleBattleUI() {
