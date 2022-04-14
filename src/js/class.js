@@ -6,7 +6,15 @@ export class Class {
   }
 
   Attack() {
-    return 1;
+    if (Math.floor(Math.random() * 100) < this.dex) {
+      return this.str * 2;
+    } else {
+      return this.str;
+    }
+  }
+
+  SufferDamage(damage) {
+    return damage;
   }
 
   LevelUp() {
@@ -33,8 +41,12 @@ export class Warrior extends Class {
     super(10, 4, 1);
   }
 
-  Attack() {
-    return this.str;
+  SufferDamage(damage) {
+    let armor = Math.floor(this.str / 2);
+    if (armor > damage) {
+      return 0;
+    }
+    return damage - armor;
   }
 
   LevelUp() {
@@ -47,16 +59,48 @@ export class Warrior extends Class {
 export class Wizard extends Class {
   constructor() {
     super(1, 4, 10);
+    this.maxMana = this.int;
+    this.mana = this.maxMana;
+    this.manaRecharge = 5;
   }
 
   Attack() {
-    return this.int;
+    let damage = this.int;
+    if (Math.floor(Math.random() * 100) < this.dex) {
+      damage *= 2;
+    }
+
+    if (this.mana > 0) {
+      damage += this.int * 0.5;
+      this.mana--;
+    } else if (this.manaRecharge <= 0) {
+      this.mana = this.maxMana;
+      this.manaRecharge = 5;
+    } else {
+      this.manaRecharge--;
+    }
+
+    return damage;
+  }
+
+  SufferDamage(damage) {
+    let modifiedDamage = damage;
+    if (damage <= this.mana) {
+      this.mana -= damage;
+      return 0;
+    } else {
+      modifiedDamage -= this.mana;
+      this.mana = 0;
+      return modifiedDamage;
+    }
   }
 
   LevelUp() {
     this.str++;
     this.dex += 2;
     this.int += 5;
+
+    this.maxMana = this.int;
   }
 }
 
@@ -65,13 +109,28 @@ export class Assassin extends Class {
     super(4, 10, 1);
   }
 
-  Attack() {
-    return this.dex;
+  SufferDamage(damage) {
+    if ((Math.floor(Math.random() * 100) + 2) < this.dex) {
+      return 0;
+    } else {
+      return damage;
+    }
   }
 
   LevelUp() {
     this.str += 2;
     this.dex += 5;
     this.int++;
+  }
+}
+
+export class MonsterClass extends Class {
+  constructor() {
+    super(5, 2, 0);
+  }
+
+  LevelUp() {
+    this.str += 5;
+    this.dex += 3;
   }
 }

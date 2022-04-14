@@ -20,21 +20,21 @@ export default class Item {
 
     switch (focus) {
       case 0: 
-        str = Math.floor((Math.random() * 5) + level + 3);
-        dex = Math.floor((Math.random() * 5) + 1);
+        str = Math.floor((Math.random() * 5) + level * 2 + 3);
+        dex = Math.floor((Math.random() * 5) + level + 1);
         int = Math.floor((Math.random() * 3));
         className += weaponNames.class.warrior[Math.floor(Math.random() * 4)];
         break;
       case 1: 
-        str = Math.floor((Math.random() * 5) + 1);
-        dex = Math.floor((Math.random() * 5) + level + 3);
+        str = Math.floor((Math.random() * 5) + level + 1);
+        dex = Math.floor((Math.random() * 5) + level * 2 + 3);
         int = Math.floor((Math.random() * 3));
         className += weaponNames.class.assassin[Math.floor(Math.random() * 4)];
         break;
       case 2:
         str = Math.floor((Math.random() * 3));
-        dex = Math.floor((Math.random() * 5) + 1);
-        int = Math.floor((Math.random() * 5) + level + 3);
+        dex = Math.floor((Math.random() * 5) + level + 1);
+        int = Math.floor((Math.random() * 5) + level * 2 + 3);
         className += weaponNames.class.wizard[Math.floor(Math.random() * 4)];
         break;
     }

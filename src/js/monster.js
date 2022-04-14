@@ -1,7 +1,7 @@
 import Item from "./item";
-import { Warrior } from "./class";
-import { Assassin } from "./class";
-import { Wizard } from "./class";
+import { MonsterClass, /*Warrior*/ } from "./class";
+//import { Assassin } from "./class";
+//import { Wizard } from "./class";
 
 export default class Monster {
   constructor(name, level, monClass, itemDrops) {
@@ -14,7 +14,7 @@ export default class Monster {
       this.monClass.LevelUp();
     }
 
-    this.hp = monClass.str;
+    this.hp = monClass.str + 30;
   }
 
   GetDrops() {
@@ -25,17 +25,18 @@ export default class Monster {
 
   static CreateMonster(level) {
     const numDrops = Math.floor(Math.random() * 4);
-    console.log(numDrops);
     let drops = [];
     for (let i = 0; i < numDrops; i++) {
       drops.push(Item.CreateItem(level));
     }
 
-    switch(Math.floor(Math.random() * 3)) {
-      case 0: return new Monster(monsterNames[Math.floor(Math.random() * 14)], level, new Warrior(), drops);
-      case 1: return new Monster(monsterNames[Math.floor(Math.random() * 14)], level, new Assassin(), drops);
-      case 2: return new Monster(monsterNames[Math.floor(Math.random() * 14)], level, new Wizard(), drops);
-    }
+    // switch(Math.floor(Math.random() * 3)) {
+    //   case 0: return new Monster(monsterNames[Math.floor(Math.random() * 14)], level, new Warrior(), drops);
+    //   case 1: return new Monster(monsterNames[Math.floor(Math.random() * 14)], level, new Assassin(), drops);
+    //   case 2: return new Monster(monsterNames[Math.floor(Math.random() * 14)], level, new Wizard(), drops);
+    // }
+
+    return new Monster(monsterNames[Math.floor(Math.random() * 14)], level, new MonsterClass(), drops);
   }
 }
 

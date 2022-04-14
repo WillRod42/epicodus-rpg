@@ -15,7 +15,6 @@ export default class Shop {
   SellItem(character, item) {
     const invItem = character.inventory.RemoveItem(item);
     if (invItem) {
-      this.inventory.AddItem(invItem);
       character.gold += Math.floor(invItem.value * .8);
       return true;
     } else {

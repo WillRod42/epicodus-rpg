@@ -2,6 +2,8 @@ export default class Battle {
   constructor(monster, character) {
     this.character = character;
     this.monster = monster;
+    this.monsterDamage = 0;
+    this.characterDamage = 0;
   }
 
   Turn(playerAction) {
@@ -9,20 +11,28 @@ export default class Battle {
       return this.EndBattle("escape");
     } else {
       if (this.character.charClass.dex > this.monster.monClass.dex) {
-        this.monster.hp -= this.character.charClass.Attack();
+        this.characterDamage = this.monster.hp;
+        this.monster.hp -= this.monster.monClass.SufferDamage(this.character.charClass.Attack());
+        this.characterDamage -= this.monster.hp;
         if (this.monster.hp <= 0) {
           return this.EndBattle("win");
         }
-        this.character.hp -= this.monster.monClass.Attack();
+        this.monsterDamage = this.character.hp;
+        this.character.hp -= this.character.charClass.SufferDamage(this.monster.monClass.Attack());
+        this.monsterDamage -= this.character.hp;
         if (this.character.hp <= 0) {
           return this.EndBattle("lose");
         }
       } else {
-        this.character.hp -= this.monster.monClass.Attack();
+        this.monsterDamage = this.character.hp;
+        this.character.hp -= this.character.charClass.SufferDamage(this.monster.monClass.Attack());
+        this.monsterDamage -= this.character.hp;
         if (this.character.hp <= 0) {
           return this.EndBattle("lose");
         }
-        this.monster.hp -= this.character.charClass.Attack();
+        this.characterDamage = this.monster.hp;
+        this.monster.hp -= this.monster.monClass.SufferDamage(this.character.charClass.Attack());
+        this.characterDamage -= this.monster.hp;
         if (this.monster.hp <= 0) {
           return this.EndBattle("win");
         }
@@ -43,7 +53,7 @@ export default class Battle {
     } else if (result === "lose") {
       console.log("do something for game-over");
     } else {
-      this.character.hp = this.character.charClass.str + 5;
+      this.character.hp = this.character.charClass.str + 50;
     }
 
     return result;

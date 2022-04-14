@@ -4,7 +4,7 @@ export default class Character {
   constructor(name, charClass) {
     this.name = name;
     this.charClass = charClass;
-    this.hp = this.charClass.str + 5;
+    this.hp = this.charClass.str + 50;
     this.gold = 10;
     this.inventory = new Inventory(5);
     this.equipment = [];
@@ -12,7 +12,7 @@ export default class Character {
 
   LevelUp() {
     this.charClass.LevelUp();
-    this.hp = this.charClass.str + 5;
+    this.hp = this.charClass.str + 50;
   }
 
   EquipItem(item) {
@@ -23,7 +23,7 @@ export default class Character {
       if (invItem) {
         this.equipment.push(invItem);
         this.charClass.AddItem(invItem);
-        this.hp = this.charClass.str + 5;
+        this.hp = this.charClass.str + 50;
         return "Success";
       } else {
         return "No item in inventory";

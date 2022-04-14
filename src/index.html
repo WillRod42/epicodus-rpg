@@ -4,35 +4,51 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="battle-screen">
-    <div></div>
+  <div id="character-select">
+    <form>
+      <h3>Name:</h3>
+      <input type="text" id="character-name" class="form-control" required>
+      <h3>Class:</h3>
+      <select id="character-class" class="form-control">
+        <option value="warrior">Warrior</option>
+        <option value="assassin">Assassin</option>
+        <option value="wizard">Wizard</option>
+      </select>
+      <button type="submit" id="create-class" class="btn btn-primary">Start</button>
+    </form>
+  </div>
+  <div id="battle-screen" class="row">
     <div id="inventory-screen"></div>
-    <div id="character">
+    <div id="character" class="col-6">
+      <div id="name-display"></div>
       <div id="character-hp"></div>
-      <img src="./assets/images/character.png" alt="character">
-      <button id="character-attack" class="btn btn-primary">Attack</button>
-      <button id="character-runaway" class="btn btn-primary">Run away</button>
+      <img id="character-img" src="./assets/images/warrior.png" alt="character">
+      
       <p><span id="character-name"></span></p>
     </div>
-    <div id="monster">
+    <div id="monster" class="col-6">
+      <div id="monster-name"></div>
       <div id="monster-hp"></div>
       <img src="./assets/images/enemy.png" alt="monster">
       <p><span id="monster-name"></span></p>
     </div>
-    <div id="shop-screen">
-      <div id="gold"></div>
-      <label>Shop: </label>
-      <div id="shop-inventory"></div>
-      <label>Inventory: </label>
-      <div id="character-inventory"></div>
-      <label>Equipment: </label>
-      <div id="equippedItems"></div>
-      <button id="equip-item" class="btn btn-primary">Equip/Unequip</button>
-      <button id="sell-item" class="btn btn-primary">Sell</button>
-    </div>
-    <div id="game-over">
-
-    </div>
+    <button id="character-attack" class="btn btn-primary">Attack</button>
+    <button id="character-runaway" class="btn btn-primary">Run away</button>
+  </div>
+  <div id="shop-screen">
+    <div id="gold"></div>
+    <label>Shop: </label>
+    <div id="shop-inventory"></div>
+    <label>Inventory: </label>
+    <div id="character-inventory"></div>
+    <label>Equipment: </label>
+    <div id="equippedItems"></div>
+    <button id="equip" class="btn btn-primary">Equip/Unequip</button>
+    <button id="sell" class="btn btn-primary">Sell</button>
+    <button id="next-level" class="btn btn-primary">Next level</button>
+  </div>
+  <div id="game-over">
+    <button id="restart" class="btn btn-primary">Restart</button>
   </div>
 </body>
 </html>
