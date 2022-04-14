@@ -14,7 +14,7 @@ export default class Inventory {
   }
 
   RemoveItem(targetItem) {
-    let index = this.items.findIndex(item => item.name === targetItem.name);
+    let index = this.items.findIndex(item => item.ToString() === targetItem);
     if (index != -1) {
       return this.items.splice(index, 1)[0];
     } else {

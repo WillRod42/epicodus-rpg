@@ -7,6 +7,10 @@ export default class Item {
     this.value = value;
   }
 
+  ToString() {
+    return `${this.name}: [str: ${this.str}, dex: ${this.dex}, int: ${this.int}] ${this.value * 1.5}g`;
+  }
+
   static CreateItem(level) {
     let focus = Math.floor(Math.random() * 3);
     let str = 0;

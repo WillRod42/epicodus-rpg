@@ -8,7 +8,7 @@ export default class Shop {
       items.push(Item.CreateItem(level));
     }
 
-    this.inventory = new Inventory(10);
+    this.inventory = new Inventory(numItems + 5);
     this.inventory.items = items;
   }
 
@@ -24,12 +24,15 @@ export default class Shop {
   }
 
   BuyItem(character, item) {
-    if (character.inventory.IsFull() || character.gold < Math.floor(item.value * 1.5)) {
+    let value = item.split(" ");
+    value = value[value.length - 1].slice(0, 2);
+
+    if (character.inventory.IsFull() || character.gold < Math.floor(value)) {
       return false;
     } else {
-      character.inventory.AddItem(item);
-      character.gold -= Math.floor(item.value * 1.5);
-      this.inventory.RemoveItem(item);
+      let boughtItem = this.inventory.RemoveItem(item);
+      character.inventory.AddItem(boughtItem);
+      character.gold -= Math.floor(boughtItem.value * 1.5);
       return true;
     }
   }

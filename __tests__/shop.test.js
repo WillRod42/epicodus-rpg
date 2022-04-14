@@ -18,7 +18,7 @@ describe("shop", () => {
 
   test("It should give the player 80% value gold of given item if it's in their inventory and add it to the shop's inventory", () => {
     let item = character.inventory.items[0];
-    shop.SellItem(character, item);
+    shop.SellItem(character, item.ToString());
     expect(shop.inventory.items.includes(item)).toEqual(true);
     expect(character.inventory.items.length).toEqual(0);
     expect(character.gold).toEqual(18);
@@ -32,7 +32,7 @@ describe("shop", () => {
   test("It should add the item to the player's inventory if their inventory is not full and they have enough gold", () => {
     character.gold = 100;
     let shopItem = shop.inventory.items[0];
-    expect(shop.BuyItem(character, shopItem)).toEqual(true);
+    expect(shop.BuyItem(character, shopItem.ToString())).toEqual(true);
     expect(character.inventory.items.includes(shopItem)).toEqual(true);
     expect(shop.inventory.items.includes(shopItem)).toEqual(false);
   });

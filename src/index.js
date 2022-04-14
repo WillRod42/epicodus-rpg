@@ -26,48 +26,88 @@ $(document).ready(function() {
     $("#character-hp").text(player.hp);
     $("#monster-hp").text(monster.hp);
     if (result === "win") {
+      let inventoryHTML = "<ul>";
+      player.inventory.items.forEach((item) =>{
+        inventoryHTML += `<li class='player-item'> ${item.ToString()}`;
+      });
+      inventoryHTML += "</ul>";
+      $("#character-inventory").html(inventoryHTML);
+
+      shop = new Shop(5, monster.level);
       $("#shop-screen").show();
 
       let shopHTML = "<ul>";
       shop.inventory.items.forEach((item) => {
-        shopHTML += `<li class='shop-item'> ${item.name}: [str: ${item.str}, dex: ${item.dex}, int: ${item.int}] ${item.value * 1.5}g`;
+        shopHTML += `<li class='shop-item'> ${item.ToString()}`;
       });
       shopHTML += "</ul>";
 
       $("#shop-inventory").html(shopHTML);
+      $("#gold").text(player.gold);
 
       $(".shop-item").on("click", function() {
-        $(this)
+        if(shop.BuyItem(player, $(this).text().trim())) {
+          $(this).remove();
+          $("#gold").text(player.gold);
+          let inventoryHTML = "<ul>";
+          player.inventory.items.forEach((item) =>{
+            inventoryHTML += `<li class='player-item'> ${item.ToString()}`;
+          });
+          inventoryHTML += "</ul>";
+          $("#character-inventory").html(inventoryHTML);
+        }
       });
-
-      shop = new Shop(5, monster.level);
+      
     }
     else if (result === "lose") {
       $("#game-over").show();
     }
   });
-  $("#buy-item").on("click", function() {
-    
+  $("#sell-item").on("click", function() {
+    $(".player-item").off("click");
+    $(".player-item").on("click", function(){
+      shop.SellItem(player, $(this).text().trim());
+      let inventoryHTML = "<ul>";
+      player.inventory.items.forEach((item) =>{
+        inventoryHTML += `<li class='player-item'> ${item.ToString()}`;
+      });
+      inventoryHTML += "</ul>";
+      $("#character-inventory").html(inventoryHTML);
+      $("#gold").text(player.gold);
+    });
+  });
+  $("#equip-item").on("click", function() {
+    $(".player-item").off("click");
+    $(".player-item").on("click", function(){
+      if (player.EquipItem($(this).text().trim()) === "Success") {
+        $(this).remove();
+      
+        let equippedHTML = "<ul>";
+        player.equipment.forEach((item) => {
+          equippedHTML += `<li class='equip-item'> ${item.ToString()}`;
+        });
+        equippedHTML += "</ul>";
+        $("#equippedItems").html(equippedHTML);
+      }
+    });
+    $(".equip-item").off("click");
+    $(".equip-item").on("click", function() {
+      
+      player.RemoveItem($(this).text().trim());
+      let removeHTML  = "<ul>";
+      player.equipment.forEach((item) => {
+        removeHTML += `<li class='equip-item'> ${item.ToString()}`;
+      });
+      removeHTML += "</ul>";
+      let inventoryHTML = "<ul>";
+      player.inventory.items.forEach((item) =>{
+        inventoryHTML += `<li class='player-item'> ${item.ToString()}`;
+      });
+      inventoryHTML += "</ul>";
+      $("#character-inventory").html(inventoryHTML);
+      $("#equippedItems").html(removeHTML);
+    });
   });
   
+  
 });
-
-/*
-function createCardGrid(deck) {
-  let gridHTML = "";
-  let cardsPerRow = (deck.size / deck.numRows);
-  let spacingColumns = ((document.body.clientWidth - (cardsPerRow * 100)) / 2) + "px";
-
-  for (let i = 0; i < deck.numRows; i++) {
-    gridHTML += "<div class='row'>";
-    gridHTML += "<div style='width: " + spacingColumns + "'></div>";
-    for (let j = 0; j < cardsPerRow; j++) {
-      gridHTML += "<div id='" + i + "-" + j + "' class='card text-center'>" + "</div>";
-    }
-    gridHTML += "</div></div>";
-  }
-  return gridHTML;
-}
-
-$("#game").html(createCardGrid(deck));
-*/

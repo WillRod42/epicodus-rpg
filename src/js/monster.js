@@ -24,7 +24,8 @@ export default class Monster {
   }
 
   static CreateMonster(level) {
-    const numDrops = (Math.random() * 4);
+    const numDrops = Math.floor(Math.random() * 4);
+    console.log(numDrops);
     let drops = [];
     for (let i = 0; i < numDrops; i++) {
       drops.push(Item.CreateItem(level));

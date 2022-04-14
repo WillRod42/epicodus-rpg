@@ -31,12 +31,13 @@ export default class Character {
     }
   }
 
-  RemoveItem(item) {
-    if (this.equipment.includes(item) && !this.inventory.IsFull()) {
-      this.charClass.RemoveItem(item);
+  RemoveItem(targetItem) {
+    let index = this.equipment.findIndex(item => item.ToString() === targetItem);
+    if (index !== -1 && !this.inventory.IsFull()) {
+      const equipItem = this.equipment.splice(index, 1)[0];
+      this.charClass.RemoveItem(equipItem);
       this.hp = this.charClass.str + 5;
-      let index = this.equipment.findIndex(eqItem => eqItem.name === item.name);
-      this.inventory.AddItem(this.equipment.splice(index, 1)[0]);
+      this.inventory.AddItem(equipItem);
       return true;
     } else {
       return false;

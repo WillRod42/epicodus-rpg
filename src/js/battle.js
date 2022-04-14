@@ -41,7 +41,7 @@ export default class Battle {
       this.character.gold += drops[drops.length - 1];
 
     } else if (result === "lose") {
-      console.log("do something for game-over")
+      console.log("do something for game-over");
     } else {
       this.character.hp = this.character.charClass.str + 5;
     }

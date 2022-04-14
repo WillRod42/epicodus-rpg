@@ -30,7 +30,7 @@ describe("inventory", () => {
   test("It should remove and return the given item if it is in items", () => {
     let item = Item.CreateItem(1);
     inventory.AddItem(item);
-    expect(inventory.RemoveItem(item)).toEqual(item);
+    expect(inventory.RemoveItem(item.ToString())).toEqual(item);
   });
 
   test("It should not remove the given item if it is not in items", () => {
