@@ -2,6 +2,7 @@
   "name": "memory",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://willrod42.github.io/epicodus-rpg/",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode development",
